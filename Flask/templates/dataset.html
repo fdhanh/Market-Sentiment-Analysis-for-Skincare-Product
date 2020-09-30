@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <title> Dataset </title>
+    <style>
+    img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    }
+    h1{
+        font-family: 'Sacramento', cursive;
+        font-size: 40px;
+        color: whitesmoke;
+        background-color: rgba(0, 0, 0, 0.226);
+        text-align: center; 
+    }
+    h2{
+        font-family: 'Comfortaa', cursive;
+        /* color: whitesmoke; */
+        font-size: 25px;
+        text-align: center;
+    }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <!-- VisDat -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
+</head>
+
+<!-- <body> -->
+<body style="background-color: rgba(252, 199, 129, 0.493);">
+<br>
+<h1> Datasets </h1>
+{% for table in tables %}
+    {{titles[loop.index]}}
+    {{ table|safe }}
+{% endfor %}
+<br>
+ 
+<h1> Data Visualization </h1> 
+<h2> Percentage of Review Brand </h2>
+<div class="ct-chart ct-minor-second" id="chart1" style="width: 650px; height: 500px;  display: block; margin-left: auto; margin-right: auto;"></div>
+<br><br>
+<h2> Average Rating per Brand </h2>
+<div class="ct-chart ct-minor-second" id="chart2" style="width: 650px; height: 500px;  display: block; margin-left: auto; margin-right: auto;"></div>
+<br><br>
+<h2> Age Reviewers </h2>
+<div class="ct-chart ct-minor-second" id="chart3" style="width: 650px; height: 500px;  display: block; margin-left: auto; margin-right: auto;"></div>
+<br><br>
+<h2> Rating Count for All Product </h2>
+<div class="ct-chart ct-minor-second" id="chart4" style="width: 650px; height: 500px;  display: block; margin-left: auto; margin-right: auto;"></div>
+
+<script>
+var chart = new Chartist.Pie('#chart1', {
+    series: [570, 542, 341, 302, 290, 258, 253, 230, 206, 180, 120],
+    labels: ['Wardah', 'The Body Shop', 'Hada Labo', 'Olay', "Pond's", 'Safi', "L'Oreal Paris", 'Garnier', 'Biokos', 'Viva Cosmetics', 'More']
+}, {
+  donut: true
+//   showLabel: false
+});
+
+chart.on('draw', function(data) {
+  if(data.type === 'slice') {
+    // Get the total path length in order to use for dash array animation
+    var pathLength = data.element._node.getTotalLength();
+
+    // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+    data.element.attr({
+      'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+    });
+
+    // Create animation definition while also assigning an ID to the animation for later sync usage
+    var animationDefinition = {
+      'stroke-dashoffset': {
+        id: 'anim' + data.index,
+        dur: 1000,
+        from: -pathLength + 'px',
+        to:  '0px',
+        easing: Chartist.Svg.Easing.easeOutQuint,
+        // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+        fill: 'freeze'
+      }
+    };
+
+    // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+    if(data.index !== 0) {
+      animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+    }
+
+    // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+    data.element.attr({
+      'stroke-dashoffset': -pathLength + 'px'
+    });
+
+    // We can't use guided mode as the animations need to rely on setting begin manually
+    // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+    data.element.animate(animationDefinition, false);
+  }
+});
+
+// For the sake of the example we update the chart every time it's created with a delay of 8 seconds
+chart.on('created', function() {
+  if(window.__anim21278907124) {
+    clearTimeout(window.__anim21278907124);
+    window.__anim21278907124 = null;
+  }
+  window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
+});
+
+new Chartist.Bar('#chart2', {
+  labels: ['Embryolisse Laboratories', 'Shiseido', 'Mia Glansie', 'Lacoco',
+       'Estee Lauder', 'Tatcha', 'Azarine Cosmetics', 'Azalea', 'Bali Alus',
+       'KOSE', 'HANSKIN'],
+  series: [4.63265306, 4.63636364, 4.65,       4.66666667, 4.68,       4.68571429,
+ 4.69,       4.7,        4.8,        4.8,        4.88888889]
+}, {
+  distributeSeries: true,
+  reverseData: true,
+  horizontalBars: true, 
+  axisY: {
+    offset: 70
+  }
+});
+
+new Chartist.Bar('#chart3', {
+  labels: ['19 - 24', '25 - 29', '30 - 34', '18 and Under', '35 - 39',
+       '45 and Above', '40 - 44'],
+  series: [2889, 1707,  688,  666,  177,   62,   44]
+}, {
+  distributeSeries: true
+});
+
+new Chartist.Bar('#chart4', {
+  labels: ['Positive','Neutral', 'Negative'],
+  series: [5190, 1488,  958]
+}, {
+  distributeSeries: true
+});
+
+
+</script>
+</body>
+</html>	

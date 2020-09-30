@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <title> Result </title>
+    <style>
+
+    h1{
+        font-family: 'Sacramento', cursive;
+        font-size: 40px;
+        color: whitesmoke;
+        background-color: rgba(0, 0, 0, 0.226);
+        text-align: center; 
+    }
+    h2{
+        font-family: 'Sacramento', cursive;
+        font-size: 40px; 
+    }
+    img{
+        max-width:100%;
+        height:auto;
+    }
+    </style>
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet"> 
+    <!-- Plot -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</head>
+
+<!-- <body> -->
+<body style="background-color: rgba(252, 199, 129, 0.493);">
+<br>
+<h1> Review Result for {{data}} </h1>
+<h2> Review Count </h2> 
+<div class="ct-chart ct-minor-second" style="width: 600px; height: 300px; float: left; display: block; margin-left: auto; margin-right: auto;"></div>
+<p>
+    {{series[0] + series[1] + series[2]}} User review this product
+    <br> Product Rating: {{pct[2]/20}}/5.0 <br>
+</p> 
+<br><br><br><br><br><br><br><br><br><br><br>
+<h2> WordCloud </h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class = 'col-sm-6'>
+            <img src={{ url_for('static', filename='wordcloud_pos.jpg') }}> 
+        </div>
+        <div class="col-sm-6">
+            <img src={{ url_for('static', filename='wordcloud_neg.jpg') }}> 
+        </div>
+    </div>
+</div>
+<script>
+new Chartist.Bar('.ct-chart', {
+  labels: ['Negative', 'Neutral', 'Positive'],
+  series: {{series}}
+}, {
+  distributeSeries: true,
+  reverseData: true,
+  horizontalBars: true,
+  width: 500,
+  height: 300,
+  axisY: {
+    offset: 70
+  }
+});
+</script>
+<br> <br> <br> <br><br> <br> <br> <br><br> <br> <br> <br><br> <br> <br> <br>
+
+ 
+</body>
+</html>	

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    input{
+          text-align: right;
+          }
+          
+    form{
+        font-family: 'Comfortaa', cursive;
+        color: whitesmoke;
+        font-size: 16px;
+        }
+
+    body{
+        background: url({{ url_for('static', filename='background.jpg') }}) no-repeat;
+        background-size: cover;
+        text-align: center;
+        
+        }
+    #Welcome {
+        font-family: 'Sacramento', cursive;
+        font-size: 60px;
+        color: whitesmoke;
+        background-color: rgba(0, 0, 0, 0.226);
+        text-align: center; 
+        }
+    h1{
+      margin: 0;
+    } 
+  </style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+</head>
+<body>
+<br>
+<div class="container-fluid">
+  <div id = "Welcome"> 
+  <h1> <b>Welcome to</b></h1>
+  <img src={{ url_for('static', filename='logo.png') }} width="200" height="200">
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col" style="background-color:rgba(230, 230, 250, 0);"></div>
+    <div class="col" style="background-color:rgba(175, 117, 62, 0.37);">
+    <br>
+      <form method="POST" enctype="multipart/form-data" action="/predict">
+        Product: &nbsp; <input type = "text" name = "product" > <br><br>
+        Review: &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" name="file">
+        <br><br>
+      <input type="submit" value="Predict">
+      </form>
+
+    <br>
+    </div>
+    <div class="col" style="background-color:rgba(230, 230, 250, 0);"></div>
+  </div>
+</div>
+<br> <br> <br>
+<footer style="text-align: right;">
+  <form method="POST" action="http://127.0.0.1:5000/dataset">
+    <input type="submit" value="Lihat Dataset">
+  </form>
+</footer>
+</body>
+</html>
