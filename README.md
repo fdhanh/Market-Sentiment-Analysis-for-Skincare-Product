@@ -41,7 +41,7 @@ Pada text preprocessing, salah satu langkah yang dilakukan yaitu text cleaning. 
 ![alt text](https://github.com/fdhanh/Sentiment_Analysis_SkinCare_Product/blob/main/img/positive_review.png?raw=true)
 
 ## Modelling
-Model final yang digunakan adalah logistic regression dengan pengurangan feature dari 3000+ menjadi 100 feature.
+Model final yang digunakan adalah logistic regression dengan parameter c = 1.62377673918872 dan pengurangan feature dari 3000+ menjadi 100 feature.
 Dengan nilai f1 negatif: 37%, netral: 22%, positif: 83% <br>
 ![alt text](https://github.com/fdhanh/Sentiment_Analysis_SkinCare_Product/blob/main/img/model_score.png?raw=true)<br>
 ![alt text](https://github.com/fdhanh/Sentiment_Analysis_SkinCare_Product/blob/main/img/metric.png?raw=true)
