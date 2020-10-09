@@ -36,7 +36,7 @@ Feature yang diambil adalah sebagai berikut.
 **Insight:** Disimpulkan bahwa dataset timpang karena data tidak seimbang antara ulasan positif-netral-negatif.
 
 ## Text Preprocessing
-Pada text preprocessing, salah satu langkah yang dilakukan yaitu text cleaning. Berikut hasil text cleaning yang dimunculkan oleh wordcloud.
+Pada text preprocessing, salah satu langkah yang dilakukan yaitu text cleaning. Berikut hasil text cleaning yang dimunculkan oleh wordcloud. <br>
 ![alt text](https://github.com/fdhanh/Sentiment_Analysis_SkinCare_Product/blob/main/img/negative_review.png?raw=true)
 ![alt text](https://github.com/fdhanh/Sentiment_Analysis_SkinCare_Product/blob/main/img/positive_review.png?raw=true)
 
